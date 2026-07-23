@@ -1,73 +1,19 @@
-import { useEffect, useState } from "react";
+import { Navigate, Route, Routes } from "react-router-dom";
+import LoginPage from "./pages/LoginPage";
+import SignupPage from "./pages/SignupPage";
+import DashboardPage from "./pages/DashboardPage";
+import BoardPage from "./pages/BoardPage";
 
-import "./App.css";
-
+// App은 라우팅 설정만 담당합니다. 실제 화면 내용은 각 page 컴포넌트 안에 있습니다.
 function App() {
-  const [message, setMessage] = useState("Spring Boot 연결 확인 중...");
-  const [serverTime, setServerTime] = useState("");
-  const [error, setError] = useState("");
-
-  useEffect(() => {
-    const controller = new AbortController();
-
-    async function checkBackendConnection() {
-      try {
-        const response = await fetch("/api/connection", {
-          method: "GET",
-          headers: {
-            Accept: "application/json",
-          },
-          signal: controller.signal,
-        });
-
-        if (!response.ok) {
-          throw new Error(`서버 응답 오류: ${response.status}`);
-        }
-
-        const data = await response.json();
-
-        setMessage(data.message);
-        setServerTime(data.serverTime);
-        setError("");
-      } catch (err) {
-        if (err.name === "AbortError") {
-          return;
-        }
-
-        setMessage("Spring Boot 연결 실패");
-        setError(err.message);
-      }
-    }
-
-    checkBackendConnection();
-
-    return () => {
-      controller.abort();
-    };
-  }, []);
-
   return (
-    <main className="page">
-      <h1>Factory Process Viewer</h1>
-
-      <section className="connection-card">
-        <h2>백엔드 연결 상태</h2>
-
-        <p>{message}</p>
-
-        {serverTime && (
-          <p>
-            <strong>서버 시간:</strong> {serverTime}
-          </p>
-        )}
-
-        {error && (
-          <p className="error">
-            <strong>오류:</strong> {error}
-          </p>
-        )}
-      </section>
-    </main>
+    <Routes>
+      <Route path="/" element={<Navigate to="/dashboard" replace />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/signup" element={<SignupPage />} />
+      <Route path="/dashboard" element={<DashboardPage />} />
+      <Route path="/board" element={<BoardPage />} />
+    </Routes>
   );
 }
 
