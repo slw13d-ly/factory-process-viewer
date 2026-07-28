@@ -1,8 +1,10 @@
 import { useFactoryData } from "../hooks/useFactoryData";
+import { usePosts } from "../hooks/usePosts";
 import KpiCards from "../components/monitoring/KpiCards";
 import DefectRateWarning from "../components/monitoring/DefectRateWarning";
 import Mimic from "../components/monitoring/Mimic";
 import InspectionHistoryTable from "../components/monitoring/InspectionHistoryTable";
+import BoardPreviewPanel from "../components/board/BoardPreviewPanel";
 import "../App.css";
 
 // 불량률이 이 값을 넘으면 "위험" 상태로 취급합니다.
@@ -18,6 +20,7 @@ function DashboardPage() {
   // (line은 요구된 데이터 모양이라 가져오긴 하지만, 아직 화면에 쓰는 곳은
   // 없습니다 — 나중에 라인 상태 표시가 필요해지면 여기서 꺼내 쓰면 됩니다.)
   const { metrics, records } = useFactoryData();
+  const { posts } = usePosts();
   const isDefectRateHigh = metrics.defectRate > DEFECT_RATE_WARNING_THRESHOLD;
 
   return (
@@ -30,10 +33,13 @@ function DashboardPage() {
         defectRate={metrics.defectRate}
       />
 
-      <section className="panel">
-        <h2 className="panel__title">공정 흐름</h2>
-        <Mimic records={records} />
-      </section>
+      <div className="dashboard-row">
+        <section className="panel dashboard-row__flow">
+          <h2 className="panel__title">공정 흐름</h2>
+          <Mimic records={records} />
+        </section>
+        <BoardPreviewPanel posts={posts} />
+      </div>
 
       <section className="panel">
         <h2 className="panel__title">검사 이력 (최신순)</h2>

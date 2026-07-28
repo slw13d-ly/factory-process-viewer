@@ -5,6 +5,17 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>frontend</title>
+    <script>
+      // React가 마운트되기 전에 사용자가 이전에 고른 테마를 먼저 적용해서,
+      // 시스템 설정 색이 잠깐 보였다가 바뀌는 깜빡임(FOUC)을 막는다.
+      // useTheme.js가 실제 상태 관리를 하고, 여기서는 첫 페인트만 맞춰준다.
+      (function () {
+        var stored = localStorage.getItem('theme');
+        if (stored === 'light' || stored === 'dark') {
+          document.documentElement.dataset.theme = stored;
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

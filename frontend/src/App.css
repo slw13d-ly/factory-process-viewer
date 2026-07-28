@@ -17,3 +17,18 @@
   color: var(--text-secondary);
   margin-bottom: 12px;
 }
+
+.dashboard-row {
+  display: flex;
+  gap: 16px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+.dashboard-row .panel {
+  margin-top: 0;
+}
+
+.dashboard-row__flow {
+  flex: 2 1 420px;
+}

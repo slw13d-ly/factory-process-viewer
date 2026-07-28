@@ -1,12 +1,16 @@
+import { usePosts } from "../hooks/usePosts";
+import PostList from "../components/board/PostList";
 import "../App.css";
 
-// 임시 화면입니다. 게시판 기능은 이후 별도로 구현합니다.
 function BoardPage() {
+  const { posts } = usePosts();
+
   return (
     <div className="app">
       <h1>게시판</h1>
       <section className="panel">
-        <p>게시판 화면 (추후 구현)</p>
+        <h2 className="panel__title">전체 게시글</h2>
+        <PostList posts={posts} />
       </section>
     </div>
   );

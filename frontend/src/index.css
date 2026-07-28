@@ -28,23 +28,56 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* 아직 useTheme()이 테마를 정하지 않은 시점(최초 페인트 등)에만 쓰이는 폴백.
+   JS가 :root에 data-theme을 붙이고 나면 아래 [data-theme] 규칙들이 이 규칙보다
+   우선하도록, 여기서는 일부러 data-theme이 없을 때로만 범위를 좁혔다. */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme]) {
     --bg: #0d0d0d;
     --surface: #1a1a19;
     --border: rgba(255, 255, 255, 0.1);
     --text: #ffffff;
     --text-secondary: #c3c2b7;
     --text-muted: #898781;
-
-    /* 상태 색상 hex 자체는 라이트/다크 동일 — 둘 다 대비 3:1을 넘도록
-       이미 검증된 값이라 모드별로 바꿀 필요가 없습니다.
-       (--color-good-text만 예외: 다크 배경에선 밝은 초록이 잘 읽혀서
-       --color-good과 같은 값을 씁니다.) */
     --color-good-text: #0ca30c;
     --color-good-bg: rgba(12, 163, 12, 0.16);
     --color-critical-bg: rgba(208, 59, 59, 0.16);
   }
+}
+
+/* useTheme()의 ThemeToggle로 사용자가 명시적으로 고른 테마 — 시스템 설정과
+   무관하게 항상 이 값이 적용된다. */
+:root[data-theme="light"] {
+  /* 스크롤바 등 브라우저 네이티브 UI도 시스템 설정이 아니라 이 값을 따르게 함
+     (color-scheme: light dark만 두면 시스템이 다크여도 여기서 라이트를
+     골랐을 때 스크롤바가 계속 어둡게 나오는 문제가 있었음). */
+  color-scheme: light;
+  --bg: #f9f9f7;
+  --surface: #fcfcfb;
+  --border: rgba(11, 11, 11, 0.1);
+  --text: #0b0b0b;
+  --text-secondary: #52514e;
+  --text-muted: #898781;
+  --color-good-text: #006300;
+  --color-good-bg: rgba(12, 163, 12, 0.08);
+  --color-critical-bg: rgba(208, 59, 59, 0.08);
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0d0d0d;
+  --surface: #1a1a19;
+  --border: rgba(255, 255, 255, 0.1);
+  --text: #ffffff;
+  --text-secondary: #c3c2b7;
+  --text-muted: #898781;
+  /* 상태 색상 hex 자체는 라이트/다크 동일 — 둘 다 대비 3:1을 넘도록
+     이미 검증된 값이라 모드별로 바꿀 필요가 없습니다.
+     (--color-good-text만 예외: 다크 배경에선 밝은 초록이 잘 읽혀서
+     --color-good과 같은 값을 씁니다.) */
+  --color-good-text: #0ca30c;
+  --color-good-bg: rgba(12, 163, 12, 0.16);
+  --color-critical-bg: rgba(208, 59, 59, 0.16);
 }
 
 * {
