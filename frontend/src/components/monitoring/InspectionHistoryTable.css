@@ -1,0 +1,83 @@
+.history-table-wrap {
+  max-height: 360px;
+  /* auto는 내용이 360px를 넘을 때만 스크롤바를 그려서, 레코드가 아직 적게
+     쌓인 순간(페이지를 막 열었을 때 등)엔 스크롤 가능한 영역이라는 표시가
+     전혀 없었습니다. scroll로 바꿔 넘치는지와 무관하게 트랙을 항상 그려서
+     "여기는 스크롤할 수 있다"는 힌트가 상시 보이게 합니다. */
+  overflow-y: scroll;
+  /* Firefox: thumb은 --text-muted 회색, 트랙은 옅은 회색 음영으로. */
+  scrollbar-width: thin;
+  scrollbar-color: var(--text-muted) var(--bg);
+}
+
+/* Chromium/WebKit: 검정이 아니라 회색 톤 thumb/트랙으로 표시되도록 명시적으로 지정 */
+.history-table-wrap::-webkit-scrollbar {
+  width: 8px;
+}
+
+.history-table-wrap::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+.history-table-wrap::-webkit-scrollbar-thumb {
+  background: var(--text-muted);
+  border-radius: 999px;
+}
+
+.history-table-wrap::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary);
+}
+
+.history-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.history-table th {
+  position: sticky;
+  top: 0;
+  background: var(--surface);
+  text-align: left;
+  padding: 8px 10px;
+  color: var(--text-muted);
+  font-size: 11px;
+  font-weight: 600;
+  border-bottom: 1px solid var(--border);
+}
+
+.history-table td {
+  padding: 9px 10px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+}
+
+/* ID/시각처럼 자릿수가 맞아야 세로로 깔끔히 정렬되는 컬럼에만 tabular-nums를 씁니다
+   (KPI 카드의 큰 숫자는 반대로 기본 숫자꼴을 씁니다 — KpiCards.css 주석 참고). */
+.mono {
+  font-family: ui-monospace, Consolas, monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+.muted {
+  color: var(--text-muted);
+}
+
+.status-pill {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.status-pill--good {
+  background: var(--color-good-bg);
+  color: var(--color-good-text);
+}
+
+.status-pill--defect {
+  background: var(--color-critical-bg);
+  color: var(--color-critical);
+}
