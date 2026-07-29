@@ -1,0 +1,5 @@
+CREATE USER factoryview IDENTIFIED BY 2449;
+
+GRANT CONNECT, RESOURCE TO factoryview;
+
+GRANT ALL PRIVILEGES TO factoryview;
