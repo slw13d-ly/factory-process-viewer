@@ -1,25 +1,77 @@
+import { Link } from 'react-router-dom'
 import './PostList.css'
 
-// posts: usePosts()가 내려주는 배열을 그대로 받습니다. 미리보기 패널
-// (BoardPreviewPanel)에서는 앞 몇 개만 slice해서 넘기고, 게시판 전체
-// 페이지(BoardPage)에서는 전체를 그대로 넘겨서 같은 마크업/스타일을
-// 재사용합니다.
-function PostList({ posts }) {
+function formatDate(value) {
+  if (!value) return '-'
+
+  return new Intl.DateTimeFormat('ko-KR', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+  }).format(new Date(value))
+}
+
+function formatReportDate(value) {
+  if (!value) return ''
+  const [year, month, day] = value.split('-')
+  return `${year}. ${month}. ${day}.`
+}
+
+function PostContent({ post }) {
+  return (
+    <>
+      <span className="post-list__title">
+        {post.notice && <span className="post-list__pin">공지</span>}
+        {post.reportDate && (
+          <span className="post-list__report-date">
+            {formatReportDate(post.reportDate)}
+          </span>
+        )}
+        {post.title}
+      </span>
+      <span className="post-list__meta">
+        {post.authorDisplayName} · {formatDate(post.createdAt)}
+      </span>
+    </>
+  )
+}
+
+function PostList({
+  posts,
+  onSelect,
+  selectedPostId,
+  linkToPost = false,
+  basePath = '/board',
+  emptyLabel = '게시글이 없습니다.',
+}) {
   if (posts.length === 0) {
-    return <p className="post-list__empty">게시글이 없습니다.</p>
+    return <p className="post-list__empty">{emptyLabel}</p>
   }
 
   return (
     <ul className="post-list">
       {posts.map((post) => (
-        <li key={post.id} className="post-list__item">
-          <span className="post-list__title">
-            {post.pinned && <span className="post-list__pin">공지</span>}
-            {post.title}
-          </span>
-          <span className="post-list__meta">
-            {post.author} · {post.createdAt}
-          </span>
+        <li
+          key={post.id}
+          className={`post-list__item ${
+            selectedPostId === post.id ? 'post-list__item--selected' : ''
+          }`}
+        >
+          {linkToPost ? (
+            <Link to={`${basePath}?post=${post.id}`} className="post-list__link">
+              <PostContent post={post} />
+            </Link>
+          ) : (
+            <button
+              type="button"
+              className="post-list__button"
+              onClick={() => onSelect?.(post)}
+            >
+              <PostContent post={post} />
+            </button>
+          )}
         </li>
       ))}
     </ul>

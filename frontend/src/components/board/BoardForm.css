@@ -1,0 +1,171 @@
+.board-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.board-form__heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.board-form__heading h2 {
+  font-size: 22px;
+}
+
+.board-form__eyebrow {
+  margin: 0 0 4px;
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.board-form__error {
+  margin: 0;
+  padding: 12px 14px;
+  border: 1px solid color-mix(in srgb, var(--color-critical) 35%, transparent);
+  border-radius: 8px;
+  background: var(--color-critical-bg);
+  color: var(--color-critical);
+  font-size: 14px;
+}
+
+.board-field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.board-field > span {
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.board-field strong {
+  color: var(--color-critical);
+}
+
+.board-field input,
+.board-field textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--text);
+  font: inherit;
+}
+
+.board-field input:focus,
+.board-field textarea:focus {
+  outline: 2px solid color-mix(in srgb, var(--accent) 30%, transparent);
+  border-color: var(--accent);
+}
+
+.board-field input[readonly] {
+  color: var(--text-secondary);
+  cursor: not-allowed;
+}
+
+.board-field textarea {
+  min-height: 260px;
+  resize: vertical;
+  line-height: 1.65;
+}
+
+.board-field small {
+  color: var(--text-muted);
+  font-size: 12px;
+  text-align: right;
+}
+
+.board-form__notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  cursor: pointer;
+}
+
+.board-form__notice input {
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  accent-color: var(--accent);
+}
+
+.board-form__notice span {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.board-form__notice strong {
+  color: var(--text);
+  font-size: 14px;
+}
+
+.board-form__notice small {
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.board-form__actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.board-button {
+  padding: 9px 15px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.board-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.board-button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.board-button--primary {
+  background: var(--accent);
+  color: #fff;
+}
+
+.board-button--secondary {
+  border-color: var(--border);
+  background: var(--surface);
+  color: var(--text);
+}
+
+.board-button--danger {
+  border-color: color-mix(in srgb, var(--color-critical) 40%, transparent);
+  background: var(--color-critical-bg);
+  color: var(--color-critical);
+}
+
+@media (max-width: 640px) {
+  .board-form__heading {
+    flex-direction: column-reverse;
+  }
+
+  .board-form__heading .board-button {
+    align-self: flex-end;
+  }
+}

@@ -1,24 +1,94 @@
-import { Link } from 'react-router-dom'
+import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import PostList from './PostList'
 import './BoardPreviewPanel.css'
 
-// 미리보기에 보여줄 최근 게시글 개수.
-const PREVIEW_COUNT = 5
+const CATEGORY_CONFIG = {
+  board: {
+    label: '게시글',
+    path: '/board',
+    writeLabel: '게시글 작성',
+    emptyLabel: '게시글이 없습니다.',
+  },
+  report: {
+    label: '보고서',
+    path: '/report-board',
+    writeLabel: '보고서 작성',
+    emptyLabel: '보고서가 없습니다.',
+  },
+}
 
-// posts: usePosts()가 내려주는 배열을 DashboardPage로부터 props로 받습니다.
-// Mimic/InspectionHistoryTable과 마찬가지로 이 컴포넌트는 usePosts()를
-// 직접 호출하지 않습니다.
-//
-// 패널 전체를 <Link>로 감싸서, 클릭하면 게시판 전체 화면(/board)으로
-// 이동합니다.
-function BoardPreviewPanel({ posts }) {
+function BoardPreviewPanel({ board, report }) {
+  const navigate = useNavigate()
+  const [activeCategory, setActiveCategory] = useState('board')
+  const config = CATEGORY_CONFIG[activeCategory]
+  const activeData = activeCategory === 'board' ? board : report
+
+  const openActiveBoardFromBackground = (event) => {
+    if (event.target.closest('a, button, .post-list')) return
+    navigate(config.path)
+  }
+
+  const handlePanelKeyDown = (event) => {
+    if (event.target !== event.currentTarget) return
+    if (event.key !== 'Enter' && event.key !== ' ') return
+
+    event.preventDefault()
+    navigate(config.path)
+  }
+
   return (
-    <Link to="/board" className="board-preview-panel-link">
-      <section className="panel board-preview-panel">
-        <h2 className="panel__title">게시판</h2>
-        <PostList posts={posts.slice(0, PREVIEW_COUNT)} />
-      </section>
-    </Link>
+    <section
+      className="panel board-preview-panel"
+      onClick={openActiveBoardFromBackground}
+      onKeyDown={handlePanelKeyDown}
+      tabIndex={0}
+      aria-label={`${config.label} 전체 보기`}
+    >
+      <div className="board-preview-panel__heading">
+        <div className="board-preview-panel__title-group">
+          <h2 className="panel__title">게시판</h2>
+          <div className="board-preview-panel__tabs" role="tablist" aria-label="게시판 종류">
+            {Object.entries(CATEGORY_CONFIG).map(([key, category]) => (
+              <button
+                key={key}
+                type="button"
+                role="tab"
+                aria-selected={activeCategory === key}
+                className={`board-preview-panel__tab ${
+                  activeCategory === key ? 'board-preview-panel__tab--active' : ''
+                }`}
+                onClick={() => setActiveCategory(key)}
+              >
+                {category.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="board-preview-panel__actions">
+          <Link
+            to={`${config.path}?compose=1`}
+            className="board-preview-panel__write"
+          >
+            {config.writeLabel}
+          </Link>
+        </div>
+      </div>
+
+      {activeData.isLoading ? (
+        <p className="board-preview-panel__status">불러오는 중...</p>
+      ) : activeData.error ? (
+        <p className="board-preview-panel__error">{activeData.error}</p>
+      ) : (
+        <PostList
+          posts={activeData.items}
+          linkToPost
+          basePath={config.path}
+          emptyLabel={config.emptyLabel}
+        />
+      )}
+    </section>
   )
 }
 

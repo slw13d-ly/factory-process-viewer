@@ -1,20 +1,16 @@
 import { useEffect, useRef, useState } from 'react'
 import './UserMenu.css'
 
-// user/onLogout은 props로 받습니다 — 이미 AuthStatus가 useAuth()를 호출해서
-// "로그인된 상태"임을 확인한 뒤에만 이 컴포넌트를 렌더링하기 때문에, 여기서
-// 다시 useAuth()를 부를 필요가 없습니다.
 function UserMenu({ user, onLogout }) {
   const [isOpen, setIsOpen] = useState(false)
   const containerRef = useRef(null)
+  const displayName = user.displayName?.trim() || user.username
 
-  // 드롭다운이 열려있는 동안에만 "바깥 클릭 감지" 리스너를 등록합니다.
-  // 닫혀있을 때까지 계속 등록해두면 클릭할 때마다 불필요하게 검사하게 됩니다.
   useEffect(() => {
-    if (!isOpen) return
+    if (!isOpen) return undefined
 
     function handleClickOutside(event) {
-      if (!containerRef.current.contains(event.target)) {
+      if (containerRef.current && !containerRef.current.contains(event.target)) {
         setIsOpen(false)
       }
     }
@@ -23,9 +19,9 @@ function UserMenu({ user, onLogout }) {
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [isOpen])
 
-  function handleLogoutClick() {
+  async function handleLogoutClick() {
     setIsOpen(false)
-    onLogout()
+    await onLogout()
   }
 
   return (
@@ -36,27 +32,29 @@ function UserMenu({ user, onLogout }) {
         onClick={() => setIsOpen((open) => !open)}
         aria-haspopup="menu"
         aria-expanded={isOpen}
+        aria-label={`${displayName} 사용자 메뉴`}
       >
-        {user.id}님 <span aria-hidden="true">{isOpen ? '▲' : '▼'}</span>
+        <span className="user-menu__greeting">{displayName}님</span>
+        <span aria-hidden="true">{isOpen ? '▲' : '▼'}</span>
       </button>
+
       {isOpen && (
-        <ul className="user-menu__dropdown" role="menu">
-          <li role="none">
-            <button
-              type="button"
-              role="menuitem"
-              className="user-menu__item"
-              onClick={handleLogoutClick}
-            >
-              로그아웃
-            </button>
-          </li>
-          {/* 마이페이지는 아직 실제 화면이 없는 자리표시자입니다.
-              가짜 링크로 만들지 않고, 클릭 핸들러 자체가 없는 비활성 항목으로 둡니다. */}
-          <li className="user-menu__item user-menu__item--disabled" aria-disabled="true">
-            마이페이지 (준비중)
-          </li>
-        </ul>
+        <div className="user-menu__dropdown" role="menu">
+          <section className="user-menu__profile" aria-label="로그인 회원정보">
+            <strong>{displayName}님</strong>
+            <span>아이디: {user.username}</span>
+            <span>이메일: {user.email}</span>
+          </section>
+
+          <button
+            type="button"
+            role="menuitem"
+            className="user-menu__item"
+            onClick={handleLogoutClick}
+          >
+            로그아웃
+          </button>
+        </div>
       )}
     </div>
   )

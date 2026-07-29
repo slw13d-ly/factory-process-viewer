@@ -1,17 +1,72 @@
-import { useState } from 'react'
-import { createInitialPosts } from '../mock/mockPosts'
+import { useCallback, useEffect, useState } from 'react'
+import { boardApi } from '../api/boardApi.js'
 
-// ───────────────────────────────────────────────────────────────────────
-// useFactoryData.js와 같은 이유로 존재하는 훅입니다: 게시글을 "어디서/어떻게
-// 가져오는지"를 이 파일 안에 가둬둬서, DashboardPage/BoardPage는
-//   const { posts } = usePosts()
-// 라고만 쓰면 되고 이게 목업인지 실제 /api/posts 응답인지 몰라도 됩니다.
-//
-// 나중에 백엔드가 준비되면 아래 useState 초기값을 useEffect + fetch로
-// 바꾸면 됩니다. 반환값의 모양( { posts } )만 유지하면 다른 파일은
-// 건드릴 필요가 없습니다.
-// ───────────────────────────────────────────────────────────────────────
-export function usePosts() {
-  const [posts] = useState(() => createInitialPosts())
-  return { posts }
+const EMPTY_PAGE = {
+  page: 0,
+  size: 10,
+  totalElements: 0,
+  totalPages: 0,
+  first: true,
+  last: true,
+}
+
+export function usePosts({ page = 0, size = 10 } = {}) {
+  const [reloadToken, setReloadToken] = useState(0)
+  const requestKey = `${page}:${size}:${reloadToken}`
+  const [result, setResult] = useState({
+    requestKey: null,
+    posts: [],
+    pageInfo: { ...EMPTY_PAGE, page, size },
+    error: '',
+  })
+
+  const reload = useCallback(() => {
+    setReloadToken((value) => value + 1)
+  }, [])
+
+  useEffect(() => {
+    let active = true
+
+    boardApi
+      .list({ page, size })
+      .then((response) => {
+        if (!active) return
+        setResult({
+          requestKey,
+          posts: response.content ?? [],
+          pageInfo: {
+            page: response.page,
+            size: response.size,
+            totalElements: response.totalElements,
+            totalPages: response.totalPages,
+            first: response.first,
+            last: response.last,
+          },
+          error: '',
+        })
+      })
+      .catch((requestError) => {
+        if (!active) return
+        setResult({
+          requestKey,
+          posts: [],
+          pageInfo: { ...EMPTY_PAGE, page, size },
+          error: requestError.message,
+        })
+      })
+
+    return () => {
+      active = false
+    }
+  }, [page, requestKey, size])
+
+  const isLoading = result.requestKey !== requestKey
+
+  return {
+    posts: result.posts,
+    pageInfo: result.pageInfo,
+    isLoading,
+    error: isLoading ? '' : result.error,
+    reload,
+  }
 }

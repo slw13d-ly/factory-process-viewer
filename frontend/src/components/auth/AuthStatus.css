@@ -13,3 +13,8 @@
 .auth-status__login-link:hover {
   opacity: 0.85;
 }
+
+.auth-status__loading {
+  color: var(--text-secondary);
+  font-size: 13px;
+}
