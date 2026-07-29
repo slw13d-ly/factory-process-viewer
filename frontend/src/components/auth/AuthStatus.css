@@ -1,0 +1,20 @@
+.auth-status__login-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 14px;
+  background: var(--text);
+  color: var(--bg);
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.auth-status__login-link:hover {
+  opacity: 0.85;
+}
+
+.auth-status__loading {
+  color: var(--text-secondary);
+  font-size: 13px;
+}

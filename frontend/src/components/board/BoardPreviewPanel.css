@@ -1,0 +1,138 @@
+.board-preview-panel {
+  flex: 1 1 320px;
+  min-width: 280px;
+  height: 100%;
+  cursor: pointer;
+}
+
+.board-preview-panel__heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+
+.board-preview-panel__title-group {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+
+.board-preview-panel__heading .panel__title {
+  flex: 0 0 auto;
+  margin-bottom: 0;
+}
+
+.board-preview-panel__tabs {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px;
+  border-radius: 8px;
+  background: var(--bg);
+}
+
+.board-preview-panel__tab {
+  padding: 5px 9px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-muted);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.board-preview-panel__tab:hover {
+  color: var(--accent);
+}
+
+.board-preview-panel__tab--active {
+  background: var(--surface);
+  color: var(--accent);
+  box-shadow: 0 1px 3px color-mix(in srgb, #000 12%, transparent);
+}
+
+.board-preview-panel__actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: default;
+}
+
+.board-preview-panel__actions a {
+  padding: 5px 8px;
+  border-radius: 6px;
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.board-preview-panel__actions a:hover {
+  background: var(--bg);
+  color: var(--accent);
+}
+
+.board-preview-panel__actions .board-preview-panel__write {
+  background: var(--accent);
+  color: #fff;
+}
+
+.board-preview-panel__actions .board-preview-panel__write:hover {
+  opacity: 0.9;
+  background: var(--accent);
+  color: #fff;
+}
+
+.board-preview-panel__status,
+.board-preview-panel__error {
+  margin: 0;
+  padding: 24px 8px;
+  color: var(--text-muted);
+  font-size: 13px;
+  text-align: center;
+}
+
+.board-preview-panel__error {
+  color: var(--color-critical);
+}
+
+.board-preview-panel:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.board-preview-panel .post-list,
+.board-preview-panel__actions,
+.board-preview-panel__tabs {
+  cursor: default;
+}
+
+@media (max-width: 560px) {
+  .board-preview-panel__heading,
+  .board-preview-panel__title-group {
+    align-items: flex-start;
+  }
+
+  .board-preview-panel__heading {
+    flex-direction: column;
+  }
+
+  .board-preview-panel__title-group {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .board-preview-panel__actions {
+    width: 100%;
+  }
+
+  .board-preview-panel__write {
+    width: 100%;
+    text-align: center;
+  }
+}

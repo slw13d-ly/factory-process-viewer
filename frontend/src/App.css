@@ -1,0 +1,34 @@
+.app {
+  min-height: 100vh;
+  padding: 24px 32px;
+}
+
+.panel {
+  margin-top: 16px;
+  padding: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.panel__title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+}
+
+.dashboard-row {
+  display: flex;
+  gap: 16px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+.dashboard-row .panel {
+  margin-top: 0;
+}
+
+.dashboard-row__flow {
+  flex: 2 1 420px;
+}

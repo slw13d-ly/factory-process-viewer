@@ -1,0 +1,59 @@
+.report-detail__date {
+  display: inline-flex;
+  margin-bottom: 10px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.report-detail__content {
+  white-space: normal;
+}
+
+.report-detail__blocks {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.report-detail__paragraph {
+  margin: 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.report-detail__table-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.report-detail__table {
+  width: 100%;
+  min-width: 520px;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: 13px;
+}
+
+.report-detail__table th,
+.report-detail__table td {
+  padding: 11px 12px;
+  border: 1px solid var(--border);
+  text-align: left;
+  vertical-align: top;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.report-detail__table th {
+  background: color-mix(in srgb, var(--accent) 7%, var(--surface));
+  color: var(--text);
+  font-weight: 800;
+}
+
+.report-detail__table td {
+  background: var(--surface);
+}
