@@ -18,6 +18,21 @@
   margin-bottom: 12px;
 }
 
+/* 패널 제목 옆에 공장 제어 버튼처럼 부가 UI를 나란히 둘 때만 쓰는 래퍼.
+   .panel__title 단독 사용(검사 이력 패널 등)에는 영향 없도록 범위를 좁혀뒀다. */
+.panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.panel__header .panel__title {
+  margin-bottom: 0;
+}
+
 .dashboard-row {
   display: flex;
   gap: 16px;

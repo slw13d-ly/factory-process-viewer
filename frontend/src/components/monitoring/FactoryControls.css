@@ -1,0 +1,45 @@
+.factory-controls {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+/* .board-preview-panel__write("게시글 작성" 버튼)와 폰트/크기를 맞췄다
+   (padding/border-radius/font-size/font-weight 동일) — 색상만 상태별로 다르게 유지. */
+.factory-control-button {
+  padding: 5px 8px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.factory-control-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.factory-control-button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.factory-control-button--start {
+  border-color: color-mix(in srgb, var(--color-good) 40%, transparent);
+  background: var(--color-good-bg);
+  color: var(--color-good-text);
+}
+
+.factory-control-button--stop {
+  border-color: color-mix(in srgb, var(--color-critical) 40%, transparent);
+  background: var(--color-critical-bg);
+  color: var(--color-critical);
+}
+
+.factory-control-button--restart {
+  border-color: color-mix(in srgb, var(--color-warning) 45%, transparent);
+  background: color-mix(in srgb, var(--color-warning) 15%, transparent);
+  color: var(--text);
+}

@@ -1,0 +1,25 @@
+.factory-status {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.factory-status__line {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.factory-status__line strong {
+  color: var(--text);
+}
+
+.factory-status__mock-banner {
+  margin: 0;
+  padding: 10px 12px;
+  border: 1px solid color-mix(in srgb, var(--color-warning) 45%, transparent);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--color-warning) 15%, transparent);
+  color: var(--text);
+  font-size: 13px;
+}
