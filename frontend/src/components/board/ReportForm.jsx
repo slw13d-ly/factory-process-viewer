@@ -231,7 +231,7 @@ function ReportForm({
       <label className="board-field">
         <span>작성자</span>
         <input value={authorName} readOnly aria-readonly="true" />
-        <small>회원가입 시 등록한 사용자 이름으로 고정됩니다.</small>
+        <small>작성자명 변경 불가합니다.</small>
       </label>
 
       <div className="report-form__title-grid">

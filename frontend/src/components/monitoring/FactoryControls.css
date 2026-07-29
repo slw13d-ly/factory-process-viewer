@@ -18,6 +18,7 @@
 }
 
 .factory-control-button:hover:not(:disabled) {
+  opacity: 0.9;
   transform: translateY(-1px);
 }
 
@@ -27,19 +28,22 @@
 }
 
 .factory-control-button--start {
-  border-color: color-mix(in srgb, var(--color-good) 40%, transparent);
-  background: var(--color-good-bg);
-  color: var(--color-good-text);
+  border-color: transparent;
+  background: var(--color-good);
+  color: #fff;
 }
 
 .factory-control-button--stop {
-  border-color: color-mix(in srgb, var(--color-critical) 40%, transparent);
-  background: var(--color-critical-bg);
-  color: var(--color-critical);
+  border-color: transparent;
+  background: var(--color-critical);
+  color: #fff;
 }
 
 .factory-control-button--restart {
-  border-color: color-mix(in srgb, var(--color-warning) 45%, transparent);
-  background: color-mix(in srgb, var(--color-warning) 15%, transparent);
-  color: var(--text);
+  border-color: transparent;
+  background: var(--color-warning);
+  /* 흰 글씨는 주황 배경(#fab219) 대비 약 1.8:1로 거의 안 보이고,
+     var(--text)는 다크 모드에서 흰색이 되어 같은 문제가 재발하므로
+     테마와 무관한 고정 어두운 색을 쓴다. */
+  color: rgba(0, 0, 0, 0.82);
 }

@@ -56,7 +56,7 @@ function SignupPage() {
         <div className="auth-card__heading">
           <p className="auth-card__eyebrow">MES FACTORY VIEW</p>
           <h1 id="signup-title">회원가입</h1>
-          <p>공장 모니터링 서비스를 사용할 계정을 만드세요.</p>
+          <p>공장 모니터링 서비스를 이용할 계정을 만드세요.</p>
         </div>
 
         {error && <p className="auth-message auth-message--error">{error}</p>}
@@ -87,7 +87,7 @@ function SignupPage() {
               value={form.displayName}
               onChange={handleChange}
               autoComplete="name"
-              placeholder="로그인 후 표시할 이름을 입력하세요"
+              placeholder="사용자 본인 성명을 입력하세요"
               maxLength="100"
               required
             />
