@@ -1,0 +1,49 @@
+.factory-controls {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+/* .board-preview-panel__write("게시글 작성" 버튼)와 폰트/크기를 맞췄다
+   (padding/border-radius/font-size/font-weight 동일) — 색상만 상태별로 다르게 유지. */
+.factory-control-button {
+  padding: 5px 8px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.factory-control-button:hover:not(:disabled) {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.factory-control-button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.factory-control-button--start {
+  border-color: transparent;
+  background: var(--color-good);
+  color: #fff;
+}
+
+.factory-control-button--stop {
+  border-color: transparent;
+  background: var(--color-critical);
+  color: #fff;
+}
+
+.factory-control-button--restart {
+  border-color: transparent;
+  background: var(--color-warning);
+  /* 흰 글씨는 주황 배경(#fab219) 대비 약 1.8:1로 거의 안 보이고,
+     var(--text)는 다크 모드에서 흰색이 되어 같은 문제가 재발하므로
+     테마와 무관한 고정 어두운 색을 쓴다. */
+  color: rgba(0, 0, 0, 0.82);
+}

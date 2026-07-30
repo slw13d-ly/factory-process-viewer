@@ -28,7 +28,6 @@ function BoardForm({
   serverError,
   resourceName = '게시글',
   noticeLabel = '공지글로 등록',
-  noticeDescription = '공지글은 일반 게시글보다 항상 위에 표시됩니다.',
 }) {
   const [form, setForm] = useState(() =>
     mode === 'edit' && initialPost
@@ -103,7 +102,7 @@ function BoardForm({
       <label className="board-field">
         <span>작성자</span>
         <input value={authorName} readOnly aria-readonly="true" />
-        <small>회원가입 시 등록한 사용자 이름으로 고정됩니다.</small>
+        <small>작성자명 변경 불가합니다.</small>
       </label>
 
       <label className="board-field">
@@ -142,7 +141,6 @@ function BoardForm({
         />
         <span>
           <strong>{noticeLabel}</strong>
-          <small>{noticeDescription}</small>
         </span>
       </label>
 

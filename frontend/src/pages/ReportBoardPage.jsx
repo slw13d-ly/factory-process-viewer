@@ -248,7 +248,7 @@ function ReportBoardPage() {
             <h1>게시판</h1>
             <BoardCategoryTabs active="report" />
           </div>
-          <p>생산 보고서와 업무 기록을 팀원들과 공유하세요.</p>
+          <p>생산 보고서와 업무 기록을 공유하세요.</p>
         </div>
         <div className="board-page__top-actions">
           {mode !== 'list' ? (
@@ -334,7 +334,7 @@ function ReportBoardPage() {
           <div className="board-page__list-heading">
             <div>
               <h2>전체 보고서</h2>
-              <p>보고 기준일 최신순으로 표시되며, 같은 날짜는 최신 작성순으로 정렬됩니다.</p>
+              <p>최신 보고 기준일으로 정렬됩니다.</p>
             </div>
             <span>총 {pageInfo.totalElements.toLocaleString('ko-KR')}건</span>
           </div>

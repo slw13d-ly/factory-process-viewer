@@ -248,7 +248,7 @@ function BoardPage() {
             <h1>게시판</h1>
             <BoardCategoryTabs active="board" />
           </div>
-          <p>생산 현황과 공지사항을 팀원들과 공유하세요.</p>
+          <p>생산 현황과 공지사항을 공유하세요.</p>
         </div>
         <div className="board-page__top-actions">
           {mode !== 'list' ? (
@@ -289,7 +289,6 @@ function BoardPage() {
             key={`${mode}-${selectedPost?.id ?? 'new'}`}
             mode={mode}
             resourceName="게시글"
-            noticeDescription="공지글은 일반 게시글보다 항상 위에 표시됩니다."
             authorName={
               mode === 'edit'
                 ? selectedPost?.authorDisplayName ?? user.displayName
@@ -336,7 +335,7 @@ function BoardPage() {
           <div className="board-page__list-heading">
             <div>
               <h2>전체 게시글</h2>
-              <p>공지글이 먼저 표시되고, 이후 최신 작성순으로 정렬됩니다.</p>
+              <p>공지글을 제외하고, 최신 작성순으로 정렬됩니다.</p>
             </div>
             <span>총 {pageInfo.totalElements.toLocaleString('ko-KR')}건</span>
           </div>
